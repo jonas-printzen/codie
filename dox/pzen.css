@@ -1,0 +1,92 @@
+body, table, div, p, dl {
+  background-color: lightgray;
+  font-family: Roboto, Geneva, Tahoma, sans-serif;
+  font-size: 14pt;
+}
+
+b { font-style:normal; }
+
+.header, .headertitle {
+  background-color: lightgray;
+  color: #616;
+}
+
+.contents {
+  background-color: lightgray;
+  font-family: Roboto, Geneva, Tahoma, sans-serif;
+}
+
+.memdoc,.memItemLeft, .memItemRight,.mdescLeft, .mdescRight
+{ background-color: #DADADA; }
+
+.contents,.textblock {
+  font-size: 14pt;
+}
+
+.contents dt {
+  font-size: 14pt;
+  margin-bottom: 0.2em;
+}
+
+.contents dd {
+  font-size: 14pt;
+  margin-inline-start: 0.1em;
+}
+
+
+.textblock p::first-letter {
+  font-size: 110%;
+  font-weight: bold;
+}
+
+.el {
+  font-family:monospace;
+  font-size: 12pt;
+}
+
+div.fragment {
+  margin: 0.5em 0.5em;
+  padding: 0.3em;
+  box-shadow: 0.1em 0.1em 0.5em #888;
+  background-color: #CCC;
+}
+
+div.line {
+  font-size: 90%;
+  padding-top: 0.4em;
+  padding-bottom: 0.4em;
+  background-color: #CCC;
+}
+
+div.ingroups { font-size: 11pt; }
+
+div.ingroups::before { content: "@" }
+
+dl.note {
+  margin: 0.5em 0.5em;
+  padding: 0.5em;
+  font-size: 110%;
+  font-style: italic;
+  color: #237;
+  border: 1px solid #BBF;
+  background-color: #DBDBCB;
+  box-shadow: 0.5em 0.5em 1em #C8C8C0;
+}
+
+.note dt { display: none; }
+
+.bold { font-weight: bold; }
+
+.steel{color:#256;}
+
+.doxtable {
+  background-color: #EEEEE8;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.doxtable p  { padding: 0.5em 0.25em;}
+
+code, code a {
+  color: darkblue !important;
+}
