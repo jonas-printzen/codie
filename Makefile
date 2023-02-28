@@ -4,7 +4,6 @@ SHELL=/bin/bash
 
 INCS=-I include
 
-
 # What are we building...
 LIB_TARGETS=libcodie
 
@@ -14,43 +13,34 @@ libcodie_HDR:=$(wildcard ${libcodie_INC}/codie/*.hpp)
 libcodie_SRC:=$(wildcard src/*.cpp)
 libcodie_OBJS:=${libcodie_SRC:%.cpp=%.o}
 
-BIN_TARGETS=
+BIN_TARGETS=speed
 
-# What modules goes in spock
-# INCS+=cmd
-# cmd_HDR:=$(wildcard cmd/*.hpp)
-# cmd_SRC:=$(wildcard cmd/*.cpp)
-# cmd_OBJS:=${cmd_SRC:%.cpp=%.o}
-# cmd_LIBS:=-ldl
+# What modules goes in speed
+INCS+=-I speed
+speed_HDR:=$(wildcard speed/*.hpp)
+speed_SRC:=$(wildcard speed/*.cpp)
+speed_OBJS:=${speed_SRC:%.cpp=%.o}
 
 # Where are we putting the output (for pack later)
 LIBOUT:=lib
 BINOUT:=bin
-
-PACK_PROVIDER:=net.pzen
-PACK_GROUP:=cxx
-PACK_NAME:=codie
-PACK_DEPS:=${LIB_TARGETS:%=${LIBOUT}/%.a} ${BIN_TARGETS:%=${BINOUT}/%}
-PACK_VERSION:=0.1.0
-PACK_RT:=amd64
 
 # CXX=clang++
 CXX=g++
 
 # CXXFLAGS:=${CXXFLAGS} -fconcepts-diagnostics-depth=2 -std=c++20 -g  --coverage -Wall
 # CXXFLAGS:=${CXXFLAGS} -std=c++20 -g -fno-inline --coverage -Wall
-CXXFLAGS:=${CXXFLAGS} -std=c++20 -g -fno-inline -Wall
+# CXXFLAGS:=${CXXFLAGS} -std=c++20 -g -fno-inline -Wall
 # CXXFLAGS:=${CXXFLAGS} -std=c++20 -g -O1 -Wall
-# CXXFLAGS:=${CXXFLAGS} -std=c++20 -O3 -Wall
-CXXFLAGS+=`sdl2-config --cflags`
-
-ARFLAGS:=rcs
+CXXFLAGS:=${CXXFLAGS} -std=c++20 -O3 -Wall
 
 #LIBS=${LIB_TARGETS:lib%=-l%} -lsndfile -lpthread
 LIBS=${LIB_TARGETS:lib%=-l%} -lpthread
 # LDFLAGS=--coverage -g -L${LIBOUT}
-LDFLAGS=-g -L${LIBOUT}
-# LDFLAGS=-L${LIBOUT}
+# LDFLAGS=-g -L${LIBOUT}
+LDFLAGS=-L${LIBOUT}
+
+ARFLAGS:=rcs
 
 DOX_FILES:=$(wildcard dox/*.dox)
 DOX_TARGETS:=${DOX_FILES:dox/%.dox=%}
@@ -67,15 +57,6 @@ what:
 	@echo "deploy: Deploy ${PACK_PROVIDER}/${PACK_GROUP}/${PACK_NAME}-${PACK_VERSION}-${PACK_RT}.tgz"
 	@echo " clean: Clean out intermediates"
 
-pack: ${PACK_NAME}-${PACK_VERSION}-${PACK_RT}.tgz
-
-${PACK_NAME}-${PACK_VERSION}-${PACK_RT}.tgz: ${PACK_DEPS}
-	ln -s ${PWD}/libcodie/include build/
-	tar zchf $@ -C build/ .
-
-deploy: codie-${PACK_VERSION}-${PACK_RT}.tgz
-	mkdir -p ${HOME}/.zpack/artifacts/${PACK_PROVIDER}/${PACK_GROUP}
-	cp $< ${HOME}/.zpack/artifacts/${PACK_PROVIDER}/${PACK_GROUP}/
 
 ${LIBOUT}:
 	mkdir -p $@

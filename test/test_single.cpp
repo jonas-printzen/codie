@@ -4,7 +4,7 @@
 #include <codie/single.hpp>
 using namespace codie;
 
-void TCase_CodieSingle(void); 
+void TCase_SingleBasic(void); 
 
 class Dummy : NoCopy {
 public:
@@ -15,7 +15,7 @@ public:
 private:
   using one=Single<Dummy>;
   friend one;
-  friend void TCase_CodieSingle(void);
+  friend void TCase_SingleBasic(void);
 
   Dummy( string atag ) : tag(atag) { incarnation++; }
 };
@@ -23,7 +23,7 @@ private:
 
 int Dummy::incarnation=0;
 
-TCASE(Codie,Single) {
+TCASE(Single,Basic) {
   TEXPECT_EQ( false, Dummy::one::initialized() );
 
   TEXPECT_THROW( Dummy::one::inst(), RuntimeError );

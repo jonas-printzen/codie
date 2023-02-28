@@ -3,7 +3,7 @@
 #include <codie/common.hpp>
 using namespace codie;
 
-TCASE(Codie,Basic) {
+TCASE(Common,Basic) {
   // Generic assumptions
   TEXPECT_EQ( 4, sizeof(int)  );
   TEXPECT_EQ( 8, sizeof(long)  );
@@ -20,7 +20,7 @@ const char* hashables[] = {
   "TiddeliPom"
 };
 
-TCASE(Codie,Hash) {
+TCASE(Common,Hash) {
   // This is a key use-case
   TEXPECT_EQ( g_codie_spec, UUID(CODIE_SPEC_STR) );
 
@@ -73,7 +73,7 @@ struct TestVec {
   long x,y,z;
 };
 
-TCASE(Codie,ASizeOf) {
+TCASE(Common,ASizeOf) {
   int ints[2] = {0};
   float floats[5]={0.f};
   TestVec vecs[3]={0};
@@ -84,14 +84,14 @@ TCASE(Codie,ASizeOf) {
 }
 
 
-TCASE(Codie,IsSame) {
+TCASE(Common,IsSame) {
   TEXPECT_EQ( true, (is_same_v<int,int>) );
   TEXPECT_EQ( false, (is_same_v<int,short>) );
   TEXPECT_EQ( false,(is_same_v<int,float>) );
   TEXPECT_EQ( false,(is_same_v<double,float>) );
 }
 
-TCASE(Codie,Memory) {
+TCASE(Common,APtr) {
   aptr_t<int> pi;
   TEXPECT_EQ(false,bool(pi));
 
@@ -125,7 +125,7 @@ protected:
 
 int bullet::n_active = 0;
 
-TCASE(Codie,aptr_t) {
+TCASE(Common,aptr_t) {
   TEXPECT_EQ( 0, bullet::n_active );
   bullet::ptr_t br;
   TEXPECT_EQ( 0, bullet::n_active );
@@ -140,7 +140,7 @@ TCASE(Codie,aptr_t) {
 }
 
 
-TCASE(Codie,Span) {
+TCASE(Common,Span) {
   int s_ints[] = {1,5,17,42};
   vector<int> s_vec_ints{ 2,6,18,43, 72 };
   array<string,3> s_arr_txts{"Killroy","was","here!"};
@@ -187,7 +187,7 @@ struct bullet_ng : bullet {
 };
 
 // ????
-TCASE(Codie,UpCast) {
+TCASE(Common,UpCast) {
   TEXPECT_EQ( 0, bullet_ng::n_active );
   bullet_ng::ptr_t br;
   TEXPECT_EQ( 0, bullet_ng::n_active );
@@ -207,14 +207,14 @@ static ret_t GetIt() {
   return {42,0.5f};
 }
 
-TCASE(Codie, Tuple) {
+TCASE(Common, Tuple) {
   auto [i,f] = GetIt();
 
   TEXPECT_EQ( 42, i );
   TEXPECT_EQ( 0.5f, f );
 }
 
-TCASE(Codie, Tie) {
+TCASE(Common, Tie) {
   int i=0;
   float f = 0.f;
 
