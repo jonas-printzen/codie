@@ -1,13 +1,19 @@
 # Backlog for codie
 
+## ON HOLD
+
 ### IN PROGRESS
-* Try making string literal a template argument in Item
+* Simple tree-model
+
 
 ### BACKLOG
-* Check coverage
+* Try making string literal a template argument in Item
+  - NOTE! No actual support yet in compilers I use
 
 
 ### DONE
+* The missing slist
+* Check coverage
 * Boot-strapped speed, performance testing
 * Import/simplify `codie/rand.hpp`
 * Import simplified time-stuff

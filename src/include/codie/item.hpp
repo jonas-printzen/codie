@@ -5,6 +5,9 @@
 
 namespace codie {
 
+// template <hash32_t H,typename T>
+// class PItem;
+
 
 /** @brief An object with a n uid
  *
@@ -19,11 +22,42 @@ namespace codie {
  *  @note Construction is deliberately hidden to force subclassing.
  */
 class Item {
+  template <hash32_t,typename>
+  friend class PItem;
 public:
+  struct meta_t {
+    uint32_t  pool : 8 ;
+    uint32_t  user : 24;
+  };
+
   const hash32_t uid;
+
+  const meta_t& meta() const { return _meta; }
+
+  static constexpr const uint32_t NONE=0;
+  static constexpr const uint32_t HEAP=1;
+  static constexpr const uint32_t NEW=2;
+
+  /** @brief Deleter to use with aptr_t<FINAL> */
+  template <typename T>
+  struct delete_t { 
+    inline void operator () ( T*p ) {
+    switch( p->meta().pool ) {
+    case Item::NEW: delete p; break;
+    case Item::HEAP: ::free(p ); break;
+    default:;
+    }
+    } 
+  };
+
 protected:
-  constexpr Item( hash32_t hash ) : uid(hash) {}
+  constexpr Item( hash32_t hash, uint32_t pool=NONE ) 
+    : uid(hash), _meta({0}) { _meta.pool = pool; }
+
+protected:
+  meta_t _meta;
 };
+
 
 /** @brief Item - wrapper
  *
@@ -66,14 +100,11 @@ public:
     Item& _item;
   };
 
-
-
   static const hash32_t ID=H;
 
 private:
   type_t _val;
 };
-
 
 /** @brief The empty Item
  *
@@ -94,6 +125,36 @@ public:
 
   static const hash32_t ID=H;
 };
+
+/** @brief A owning pointer wrapper for dynamically allocated Items
+ *
+ *  Use this to declare the type of an object that, by design, has
+ *  dynamic lifetime. Avoid, if possible,  mixing ot AItem<T> and 
+ *  PItem<T>, where T is the same.
+ */
+template <hash32_t H,typename T=void>
+class PItem : public aptr_t<AItem<H,T>,Item::delete_t<AItem<H,T>>> {
+public:
+  using type_t = AItem<H,T>;
+  using base_t = aptr_t<type_t,Item::delete_t<AItem<H,T>>>;
+
+  PItem( type_t *p=nullptr ) : base_t( p ) {
+    if( p ) p->_meta.pool = Item::NEW;
+  }
+
+  inline void reset( type_t *p ) {
+    base_t::reset( p );
+    if( p ) p->_meta.pool = Item::NEW;
+  }
+
+  /** @brief Create an instance... */
+  static inline PItem create( auto&&...args ) { 
+    return new type_t( std::forward<decltype(args)>(args)... ); 
+  }
+
+private:
+};
+
 
 } // namespace codie
 

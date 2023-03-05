@@ -10,9 +10,9 @@
 #include <span>
 #include <vector>
 #include <memory>
+#include <initializer_list>
 
 #define CODIE_SPEC_STR "libcodie 0.1"
-
 
 #define CODIE_EXPECT(EXPR,MSG) if(!(EXPR)) { throw RuntimeError(MSG); }
 
@@ -28,7 +28,12 @@ using std::tie;
 using std::span;
 using std::vector;
 using std::array;
+using std::initializer_list;
 using std::is_same_v;
+using std::same_as;
+using std::forward;
+using std::move;
+
 
 using Exception=std::exception;
 using OutOfRange=std::out_of_range;

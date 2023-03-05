@@ -4,6 +4,10 @@
 #include <stdint.h>
 #include <iostream>
 
+using std::cout;
+using std::cerr;
+using std::endl;
+
 #define _ITOS_(N) #N
 #define _ITOS(N) _ITOS_(N)
 #define __SLINE__ _ITOS(__LINE__)
