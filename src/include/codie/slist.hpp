@@ -41,7 +41,11 @@ public:
 
     const_iterator( const base_t&it ) : base_t(it) {}
     using base_t::operator ==;
-    using base_t::operator ++;
+
+    inline const_iterator& operator ++ () {
+      (void)base_t::operator++();
+      return *this;
+    } 
 
     inline const_reference operator * () const { return base_t::operator*().value; }
     inline const item_t& item() const { return base_t::operator*(); }
@@ -53,7 +57,11 @@ public:
 
     iterator( const base_t&it ) : base_t((base_t&)it) {}
     using base_t::operator ==;
-    using base_t::operator ++;
+
+    inline iterator& operator ++ () {
+      (void)base_t::operator++();
+      return *this;
+    } 
 
     inline reference operator * () { return base_t::operator*().value; }
     inline item_t& item() { return base_t::operator*(); }
@@ -74,11 +82,11 @@ public:
   inline iterator end(void) { return iterator(_items.end()); }
   inline const_iterator end(void) const { return const_iterator(_items.end()); }
 
-  inline iterator before_begin(void) const { return iterator(_items.before_begin()); }
-  inline const_iterator before_begin(void) { return const_iterator(_items.before_begin()); }
+  inline iterator before_begin(void) { return iterator(_items.before_begin()); }
+  inline const_iterator before_begin(void) const { return const_iterator(_items.before_begin()); }
 
-  inline iterator before_end(void) const { return iterator(_items.before_end()); }
-  inline const_iterator before_end(void) { return const_iterator(_items.before_end()); }
+  inline iterator before_end(void) { return iterator(_items.before_end()); }
+  inline const_iterator before_end(void) const { return const_iterator(_items.before_end()); }
 
   inline const_reference front(void) const { return _items.front().value; }
   inline reference& front(void) { return _items.front().value; }
@@ -122,15 +130,11 @@ public:
     delete pi;
   }
 
-  inline iptr_t pull_after( iterator &it ) {
+  inline iptr_t pull_after( iterator it ) {
     item_t *pi = (item_t*)it->next();
     _items.unlink_after( it.item() );
     return iptr_t(pi);
   }
-
-  // inline iterator before( iterator &it ) {
-  //   return iterator(&find_before( it.item() ));
-  // }
 
   /** @brief Drop the first item */
   inline void pop_front() {

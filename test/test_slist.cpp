@@ -85,9 +85,40 @@ TCASE(SList,Moving) {
   TEXPECT_EQ( 1., vecs.front().x );
   TEXPECT_EQ( 0., vecs.back().x );
 
+  TEXPECT_EQ( false, bool(pv) );
   pv = vecs.pull_back();
+  TEXPECT_EQ( true, bool(pv) );
   Vec tmp{0.f,0.f};
   TEXPECT_EQ( tmp, pv->value );
   TEXPECT_EQ( 1U, vecs.size() );
+
+  vecs.clear();
+  TEXPECT_EQ( 0U, vecs.size() );
   
+  vecs.insert_after( vecs.before_begin(), move(pv) );
+  TEXPECT_EQ( 1U, vecs.size() );
+  TEXPECT_EQ( false, bool(pv) );
+
+  auto &vec = vecs.emplace_after( vecs.before_begin(), Vec{42.f,42.f} );
+  TEXPECT_EQ( 42.f, vec.x );
+  vecs.pull_after( vecs.before_begin() );
+
+  Vec tmp2{28,28};
+
+  pv.reset( new VecList::item_t(tmp2) );
+  TEXPECT_EQ( true, bool(pv) );
+
+  vecs.insert_after( vecs.before_end(), move(pv) );
+  TEXPECT_EQ( 2U, vecs.size() );
+
+  const VecList &cvecs = vecs;
+  TEXPECT_EQ( tmp, cvecs.front() );
+  TEXPECT_EQ( tmp2, cvecs.back() );
+  TEXPECT_EQ( tmp, *++cvecs.before_begin() );
+  TEXPECT_EQ( tmp2, *cvecs.before_end() );
+  // Tricy to test, but for completenes...
+  const VecList::iterator &cit = vecs.before_end();
+  const Vec &cvec = *cit;
+  TEXPECT_EQ( tmp2, cvec );
+ 
 }

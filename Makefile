@@ -30,9 +30,9 @@ CXX=g++
 
 # CXXFLAGS:=${CXXFLAGS} -fconcepts-diagnostics-depth=2 -std=c++20 -g  --coverage -Wall
 # CXXFLAGS:=${CXXFLAGS} -std=c++20 -g -fno-inline --coverage -Wall
-CXXFLAGS:=${CXXFLAGS} -std=c++20 -g -fno-inline -Wall
+# CXXFLAGS:=${CXXFLAGS} -std=c++20 -g -fno-inline -Wall
 # CXXFLAGS:=${CXXFLAGS} -std=c++20 -g -O1 -Wall
-# CXXFLAGS:=${CXXFLAGS} -std=c++20 -O3 -Wall
+CXXFLAGS:=${CXXFLAGS} -std=c++20 -O3 -Wall
 
 #LIBS=${LIB_TARGETS:lib%=-l%} -lsndfile -lpthread
 LIBS=${LIB_TARGETS:lib%=-l%} -lpthread

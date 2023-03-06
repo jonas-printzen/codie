@@ -66,10 +66,13 @@ public:
     using const_pointer = const value_type*;
     using link_t = islink<T>;
 
-    constexpr const_iterator( link_t *pi=nullptr ) : _pitem((const_pointer)pi) {}
+    constexpr const_iterator( const link_t *pi=nullptr ) : _pitem((const_pointer)pi) {}
     constexpr const_iterator( const const_iterator& ) = default;
 
-    inline constexpr void operator ++ () { _pitem = (const_pointer)((const link_t*)_pitem)->_next; }
+    inline constexpr const_iterator& operator ++ () { 
+      _pitem = (const_pointer)((const link_t*)_pitem)->_next; 
+      return *this;
+    }
     inline operator bool() const { return nullptr != _pitem; }
 
     inline const_reference operator * () const { return *(const_pointer)_pitem; }
@@ -94,7 +97,10 @@ public:
     constexpr iterator( link_t *pi=nullptr ) : _pitem((pointer)pi) {}
     constexpr iterator( iterator& ) = default;
 
-    inline constexpr void operator ++ () { _pitem = (pointer)(((link_t*)_pitem)->_next); }
+    inline constexpr iterator& operator ++ () { 
+      _pitem = (pointer)(((link_t*)_pitem)->_next); 
+      return *this;
+    }
     inline operator bool() const { return nullptr != _pitem; }
 
     inline reference operator * () { return *(pointer)_pitem; }
@@ -110,18 +116,18 @@ public:
     pointer _pitem;
   };
 
-  inline iterator before_begin(void) { return iterator( &before_front()); }
-  inline const_iterator before_begin(void) const { return const_iterator(&before_front()); }
+  inline iterator before_begin(void) { return iterator( (link_t*)&before_front()); }
+  inline const_iterator before_begin(void) const { return const_iterator((const link_t*)&before_front()); }
   inline iterator begin(void) { return iterator(_next); }
   inline const_iterator begin(void) const { return const_iterator(_next); }
 
-  inline iterator before_end(void) { return iterator( &back()); }
-  inline const_iterator before_end(void) const { return const_iterator(&back()); }
+  inline iterator before_end(void) { return iterator( (link_t*)&back()); }
+  inline const_iterator before_end(void) const { return const_iterator((const link_t*)&back()); }
   inline iterator end(void) { return iterator(nullptr); }
   inline const_iterator end(void) const { return const_iterator(nullptr); }
 
   inline reference front(void) { return *(pointer)_next; }
-  inline const_reference front(void) const { return (const_pointer)*_next; }
+  inline const_reference front(void) const { return *(const_pointer)_next; }
 
   inline reference before_front(void) { return *(pointer)this; }
   inline const_reference before_front(void) const { return *(const_pointer)this; }
