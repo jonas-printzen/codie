@@ -35,7 +35,7 @@ struct NoCopy {
  *   // Prepare stuff before singleton creation
  *   int ret = 0;
  *   {
- *      MyApp::single _app_instance_; // Creates an instance ..
+ *      MyApp::one _app_instance_; // Creates an instance ..
  *      MyApp &app = MyApp::one::inst();
  *      ret = app.Main();
  *   }  // Instance destroyed
