@@ -12,6 +12,7 @@
 
 
 ### DONE
+* Basic ranges ... (TBC)
 * The missing slist
 * Check coverage
 * Boot-strapped speed, performance testing
