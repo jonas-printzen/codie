@@ -12,7 +12,7 @@ namespace codie {
  *
  */
 template <typename T>
-class slist : protected islink<T> {
+class slist {
 public:
   using value_type = T;
   using size_type = size_t;
