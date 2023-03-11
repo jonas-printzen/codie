@@ -25,10 +25,12 @@ Included the following parts so far:
 | Header                   | Description                    |
 |:-------------------------|:-------------------------------|
 | **`codie/common.hpp`**   | Common parts used in API's     |
+| **`codie/ranges.hpp`**   | Python-style range (1D & 2D)   |
 | **`codie/item.hpp`**     | Base for my switchables...     |
 | **`codie/single.hpp`**   | My take on singleton...        |
 | **`codie/islist.hpp`**   | Simple ***intrusive*** list    |
 | **`codie/slist.hpp`**    | The missing slist...           |
+| **`codie/tree.hpp`**     | A simple tree...               |
 | **`codie/chronos.hpp`**  | Helpers for performance checks |
 | **`codie/rand.hpp`**     | Short-cuts to randomisation    |
 
@@ -77,6 +79,12 @@ allowing insertion/extraction of list-elements onto a smart-pointer. My first va
 this, from the 90's, had it's own smart-pointer implementation and has proven to be 
 incredibly usefull for message-queuing, complex streaming and reactive-like scenarios. 
 
+## Tree
+Just a simple tree-construct. I've had many flavors, here I'm trying to merge the
+best of my ideas...
+
+**W**ork **I**n **P**rogress
+
 ## Single ...
 
 My take on ***singleton*** - pattern. I strongly believe in properly bound lifetime
@@ -106,7 +114,11 @@ from regular instances.
 
 ## Chronos
 I like to keep track of the performance. I have a growing number of helpers
-to make this easy...
+to make this easy... 
+
+**W**ork **I**n **P**rogress
 
 ## Rand
 Randomization shortcut's I've grown accustomed to...
+
+**W**ork **I**n **P**rogress
