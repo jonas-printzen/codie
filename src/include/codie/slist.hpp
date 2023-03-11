@@ -7,6 +7,11 @@
 namespace codie {
 
 
+/** @addtogroup MODEL
+ *
+ * @{
+ */
+
 /** @brief The missing slist
  *
  *
@@ -24,14 +29,14 @@ public:
 
   /** @brief The mamanged item-type */
   struct item_t : islink<value_type> { 
-    item_t( auto&&...init ) : value( forward<decltype(init)>(init)... ) {}
+    item_t( auto&&...init ) : value( std::forward<decltype(init)>(init)... ) {}
     T value; 
   };
 
   using iptr_t = aptr_t<item_t>;
-
   using items_t = islist<item_t>;
 
+  using link_t = islink<value_type>;
 
   ~slist(void) { clear(); }
 
@@ -75,7 +80,7 @@ public:
   }
 
   /** @brief Is the list empty? */
-  inline bool empty(void) const { return _items.empty(); }
+  inline constexpr bool empty(void) const { return _items.empty(); }
 
   inline iterator begin(void) { return iterator(_items.begin()); }
   inline const_iterator begin(void) const { return const_iterator(_items.begin()); }
@@ -94,20 +99,14 @@ public:
   inline const_reference back(void) const { return _items.back().value; }
   inline reference back(void) { return _items.back().value; }
 
-  inline reference push_back( auto&&...init ) {
-    item_t *pi = new item_t( forward<decltype(init)>(init)... );
-    _items.link_back( *pi );
-    return pi->value;
-  }
-
   inline reference push_front( auto&&...init ) {
-    item_t *pi = new item_t( forward<decltype(init)>(init)... );
+    item_t *pi = new item_t( std::forward<decltype(init)>(init)... );
     _items.link_front( *pi );
     return pi->value;
   }
 
   inline reference emplace_after( iterator it, auto &&...init ) {
-    item_t *pi = new item_t( forward<decltype(init)>(init)... );
+    item_t *pi = new item_t( std::forward<decltype(init)>(init)... );
     _items.link_after( it.item(), *pi );
     return pi->value;
   }
@@ -150,6 +149,12 @@ public:
     return iptr_t(pi);
   }
 
+  inline reference push_back( auto&&...init ) {
+    item_t *pi = new item_t( std::forward<decltype(init)>(init)... );
+    _items.link_back( *pi );
+    return pi->value;
+  }
+
   /** @brief Drop the last item */
   inline void pop_back() {
     item_t *pi = &_items.back();
@@ -169,12 +174,33 @@ public:
     return _items.size();
   }
 
+  /** @brief Get item-pointer from value-pointer
+   *
+   * @note Use with care ...
+   */
+  inline item_t* item( pointer p ) {
+    return p ? (item_t*)(((int8_t*)p) - sizeof(link_t)) : nullptr;
+  }
+
+  /** @brief Unlink and forget
+   * 
+   * @note Use with care....
+   */
+  inline void drop( item_t* pi ) {
+    // What is the `item_t` that has *p as value?
+    _items.find_unlink( *pi );
+  }
+
 
 private:
   // NOTE! The pointer to first is `_next` in the base_class
   // link_t *_last=nullptr;
   items_t _items;
 };
+
+/**
+ * @}
+ */
 
 } // namespace codie
 

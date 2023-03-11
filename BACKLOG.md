@@ -3,15 +3,21 @@
 ## ON HOLD
 
 ### IN PROGRESS
-* Simple tree-model
-
+* The memory mapped file and tokens, import and refine
 
 ### BACKLOG
-* Try making string literal a template argument in Item
-  - NOTE! No actual support yet in compilers I use
-
+* More tests on tree
+* Add path for tree = slist<string> with separator as template char='/'
+* Serialization primitives, which one? Need data-driven approach for reactive...
+* Config-reader, cson format assumed
+* Import Messages and Events, use the reactive dispatch
+* Try optimize out `min()` from Ranges `operator++`
+* Import App - class and arguments
+* Import the simplified Logger - class
+* Start with `Spock` as driver to prio and completion...
 
 ### DONE
+* Tree-model
 * Basic ranges ... (TBC)
 * The missing slist
 * Check coverage

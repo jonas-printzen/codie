@@ -18,13 +18,13 @@ struct Rect2D {
 };
 
 
-using ASize = AItem<UID("Size2D"), Size2D>;
-using ARect = AItem<UID("Rect2D"), Rect2D>;
-using AReal = AItem<UID("float"), float>;
-using AInt = AItem<UID("int"), int>;
-using ASetup = AItem<UID("Setup")>;
-using ATeardown = AItem<UID("Teardwon")>;
-using ATimeout = AItem<UID("timeout")>;
+using ASize = AItem<UUID("Size2D"), Size2D>;
+using ARect = AItem<UUID("Rect2D"), Rect2D>;
+using AReal = AItem<UUID("float"), float>;
+using AInt = AItem<UUID("int"), int>;
+using ASetup = AItem<UUID("Setup")>;
+using ATeardown = AItem<UUID("Teardwon")>;
+using ATimeout = AItem<UUID("timeout")>;
 
 ASize s_size=Size2D{1,2};       uint64_t s_size_count=0;
 ARect s_rect=Rect2D{0,0,10,10}; uint64_t s_rect_count=0;
@@ -65,8 +65,6 @@ static void ItemDispatch() {
   cout << "done!\n"
        << "  Dispatched " << (double(sum)/double(t1-t0)) << " events per µs!" << endl;
 }
-
-
 
 int main( int, char** ) {
   ItemDispatch();

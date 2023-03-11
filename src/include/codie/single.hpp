@@ -7,6 +7,11 @@
 
 namespace codie {
 
+/** @addtogroup MODEL
+ *
+ * @{
+ */
+
 /** @brief Can't make copyable class singleton, doah! */
 struct NoCopy {
   NoCopy( const NoCopy& ) = delete;
@@ -79,6 +84,11 @@ private:
 
 template <class C>
 aptr_t<C> Single<C>::pInst;
+
+/**
+ * @}
+ */
+
 
 } // namespace spock
 

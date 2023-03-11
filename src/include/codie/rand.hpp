@@ -7,14 +7,7 @@
 
 namespace codie {
 
-/** @addtogroup RND Random generators
- *
- *  @brief Random generation
- *
- *  Creating a random number is split in ***two parts***. The first is a
- *  random-engine, which generates unsigned integer values (16/32/64).
- *  With this you can then select a distribution, which determines
- *  the probability of values between ***min*** and ***max***.
+/** @addtogroup RND 
  *
  * @{
  */

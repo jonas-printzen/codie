@@ -8,6 +8,11 @@
 
 namespace codie {
 
+/** @addtogroup TIMERS
+ *
+ * @{
+ */
+
 using timestamp_t = uint64_t;   ///< Timestamp in µsec
 using timediff_t  = int64_t;    ///< Time-difference in µsec
 
@@ -23,6 +28,9 @@ public:
 };
 
 
+/**
+ * @}
+ */
 
 } // ns pzen
 

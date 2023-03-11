@@ -5,6 +5,11 @@
 
 namespace codie {
 
+/** @addtogroup MODEL
+ *
+ * @{
+ */
+
 template <typename T> class islink;
 template <typename T> class islist;
 
@@ -32,7 +37,7 @@ protected:
   islink* _next;
 };
 
-/** @brief Single linked intrusive list
+/** @brief %Single linked intrusive list
  *
  * Put things in a list with minimal overhead...
  *
@@ -57,7 +62,7 @@ public:
   }
 
   /** @brief Is the list empty? */
-  inline bool empty(void) const { return nullptr == _last; }
+  inline constexpr bool empty(void) const { return nullptr == _last; }
 
   class const_iterator {
   public:
@@ -210,6 +215,9 @@ private:
   link_t *_last=nullptr;
 };
 
+/**
+ * @}
+ */
 
 } // namespace codie
 

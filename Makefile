@@ -75,6 +75,8 @@ TEST_SRC:=$(wildcard test/*.cpp)
 # TEST_SRC += test/test_slist.cpp
 # TEST_SRC += $(wildcard test/test_cxx*.cpp)
 # TEST_SRC += test/test_ranges.cpp
+# TEST_SRC += test/test_item.cpp
+# TEST_SRC += test/test_tree.cpp
 
 .PHONY: test
 test: test/test

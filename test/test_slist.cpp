@@ -65,18 +65,18 @@ TCASE(SList,Moving) {
 
   TEXPECT_EQ( true, bool(pv) );
 
-  vecs.insert_front( move(pv)  );
+  vecs.insert_front( std::move(pv)  );
   TEXPECT_EQ( false, bool(pv) );
   TEXPECT_EQ( 1U, vecs.size() );
  
   pv.reset( new VecList::item_t(1.f,2.f) );
-  vecs.insert_front( move(pv)  );
+  vecs.insert_front( std::move(pv)  );
   TEXPECT_EQ( false, bool(pv) );
   TEXPECT_EQ( 2U, vecs.size() );
 
   pv.reset( new VecList::item_t(1920.f,1080.f) );
 
-  vecs.insert_after( vecs.begin(), move(pv) );
+  vecs.insert_after( vecs.begin(), std::move(pv) );
   TEXPECT_EQ( 3U, vecs.size() );
   TEXPECT_EQ( 1., vecs.front().x );
   TEXPECT_EQ( 0., vecs.back().x );
@@ -95,7 +95,7 @@ TCASE(SList,Moving) {
   vecs.clear();
   TEXPECT_EQ( 0U, vecs.size() );
   
-  vecs.insert_after( vecs.before_begin(), move(pv) );
+  vecs.insert_after( vecs.before_begin(), std::move(pv) );
   TEXPECT_EQ( 1U, vecs.size() );
   TEXPECT_EQ( false, bool(pv) );
 
@@ -108,7 +108,7 @@ TCASE(SList,Moving) {
   pv.reset( new VecList::item_t(tmp2) );
   TEXPECT_EQ( true, bool(pv) );
 
-  vecs.insert_after( vecs.before_end(), move(pv) );
+  vecs.insert_after( vecs.before_end(), std::move(pv) );
   TEXPECT_EQ( 2U, vecs.size() );
 
   const VecList &cvecs = vecs;

@@ -31,12 +31,10 @@ using std::array;
 using std::initializer_list;
 using std::is_same_v;
 using std::same_as;
-using std::forward;
-using std::move;
 
 
 using Exception=std::exception;
-using OutOfRange=std::out_of_range;
+using KeyError = std::out_of_range;
 // using NotImpl=std::bad_optional_access;
 using RuntimeError = std::runtime_error;
 
@@ -53,6 +51,7 @@ using size3d_t = tuple<uint32_t,uint32_t,uint32_t>;
 template <typename T, class D=std::default_delete<T>>
 using aptr_t=std::unique_ptr<T,D>;
 
+/** @brief Array-sizeof */
 inline constexpr size_t asizeof( const auto &array ) {
   return sizeof(array)/sizeof(array[0]);
 }

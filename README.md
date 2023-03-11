@@ -3,11 +3,10 @@
 ## Purpose
 This is a manifestation of my preferred style of C++20 programming. Decided to put
 it on github for my own convenience. It is designed in conjunction with some of my 
-own tools and snippets, so I can quickly try out design ideas, as well as writing
+own tools and snippets, so I can quickly try out design ideas and write
 some useful tools. At the start of this project (Summer 2022) the code was spread 
-across several private code-bases and repositories from the last 3+ decades.
-I intend to pick the parts I use the most and simply use it when I get an idea or 
-challange. 
+across several private code-bases and repositories, from the last 3+ decades.
+I intend to pick the parts I use the most. 
 
 Sticking to some (good?) habbits regarding documentation, 
 I will summarize the included parts...
@@ -16,12 +15,12 @@ For my own use! No batteries included!
 
 ## Content
 
-The library is intended as a mostly header ***static*** library. Few people realize
-that C++ does not define any ABI well enough to actually support dynamic linkage,
-those (`*.dll` | `*.so`) come from the oprating systems and vanilla **C**. This 
-is important to remember, and also, keep the linkable part small!
+This is intended as a mostly header ***static*** library. Few people realize
+that C++ does not define the ABI well enough to actually support dynamic linkage.
+Those (`*.dll` | `*.so`) come from the oprating systems and vanilla **C**. This 
+is important to remember, and also, keep the linkable part(s) small!
 
-Included the folloing parts so far:
+Included the following parts so far:
 
 | Header                   | Description                    |
 |:-------------------------|:-------------------------------|
@@ -35,16 +34,13 @@ Included the folloing parts so far:
 
 ## Common ...
 
-The types and constructs I almost always use to write API's and coding. I prefer
-to use my own names on things and to have them collected in one place. So, when
-I ask myself, *'Can I use this type in an API?'*, the answer is *'If it's part of common!'*. Well, it's a simplified way of picking a style ...
+The types and constructs I almost always use to write API's and coding. 
 
 ## Item ...
-Based on the `constexpr` hashing in common, I've designed a way to dispatch 
-different events and messages that rely on this. It's a working replacement 
-for enumeration in cases where allocation of sequence-number is not really
-feasable. So, instead of defining an enum of event-types (and failing int/enum)
-I use hashes that are compile-time constants and thus switchable.
+Based on the `constexpr` hashing in common, I designed a way to dispatch 
+different events and messages. It's a working replacement for enumerations 
+in cases where allocation of sequence-numbers is not really feasable. 
+So, instead, I use hashes that are compile-time constants and thus switchable.
 
 The example-code below, note that `UID("SomeText")` is used as ***compile-time*** constant!
 
@@ -65,8 +61,8 @@ void event_handler( event& e ) {
 }
 ```
 
-The **Item** - class is the base of my event- and message -solutions from the past. 
-I have been using this in many projects, the most modern variants relie on the above 
+The **Item** - class is the base of my event- and message -solutions. 
+I have been using this in many projects, the modern variants rely on the above 
 hash-constant concept.. I will attempt to import the best of those into this library.
 However, there are som many variants it's going to take a while to clean up  ...
 
@@ -74,8 +70,9 @@ However, there are som many variants it's going to take a while to clean up  ...
 
 The missing `slist<>`, is my take on a singly-linked list, which is still missing
 in the standard C++ libraries. The `std::forward_list<>` is in my view a mistake 
-that could have been avoided. The ***intrusive*** `islist<>` and `slist<>` complement eachother and provide an highly efficient list that can be used as both **FIFO** and 
-**LIFO** situation. The `slist<>` itself has a feature I have relied on many times, 
+that could have been avoided. The ***intrusive*** `islist<>` and `slist<>` complement 
+eachother and provide an highly efficient list that can be used as both **FIFO** and 
+**LIFO**. The `slist<>` itself has a feature I have relied on many times, 
 allowing insertion/extraction of list-elements onto a smart-pointer. My first variant on 
 this, from the 90's, had it's own smart-pointer implementation and has proven to be 
 incredibly usefull for message-queuing, complex streaming and reactive-like scenarios. 
