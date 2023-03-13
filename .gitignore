@@ -2,7 +2,7 @@ test/test
 *.o
 bin/
 lib/
-include/
+./include/
 dox/*/
 cov/
 *.gc??

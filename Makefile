@@ -69,14 +69,15 @@ ${BINOUT}:
 bins: ${BINOUT} ${BIN_TARGETS:%=${BINOUT}/%}
 
 #==== Tests ====
-TEST_SRC:=$(wildcard test/*.cpp)
-# TEST_SRC = test/utest.cpp
+# TEST_SRC:=$(wildcard test/*.cpp)
+TEST_SRC = test/utest.cpp
 # TEST_SRC += test/test_islist.cpp
 # TEST_SRC += test/test_slist.cpp
 # TEST_SRC += $(wildcard test/test_cxx*.cpp)
 # TEST_SRC += test/test_ranges.cpp
 # TEST_SRC += test/test_item.cpp
-# TEST_SRC += test/test_tree.cpp
+TEST_SRC += test/test_tree.cpp
+TEST_SRC += test/test_mfile.cpp
 
 .PHONY: test
 test: test/test

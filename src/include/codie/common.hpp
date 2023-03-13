@@ -1,6 +1,7 @@
 #ifndef CODIE_COMMON_HDR
 #define CODIE_COMMON_HDR
 
+#include <bits/stdint-uintn.h>
 #include <stdint.h>
 #include <string.h>
 
@@ -38,10 +39,18 @@ using KeyError = std::out_of_range;
 // using NotImpl=std::bad_optional_access;
 using RuntimeError = std::runtime_error;
 
+using chars = span<char, std::dynamic_extent>;
+using cchars = span<const char, std::dynamic_extent>;
 using cstr_p = const char *;
-using std::string;
+using str_p = char *;
+using strings = span<str_p,std::dynamic_extent>;
 using cstrings = span<cstr_p,std::dynamic_extent>;
+using vstrings = vector<str_p>;
 using vcstrings = vector<cstr_p>;
+using std::string;
+using  byte = uint8_t;
+using bytes = span<byte,std::dynamic_extent>;
+using cbytes = span<const byte,std::dynamic_extent>;
 
 //==== Vulkan related shorter names =========
 using size2d_t = tuple<uint32_t,uint32_t>;
